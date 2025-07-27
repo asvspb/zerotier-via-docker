@@ -11,20 +11,17 @@
 
 ## Подробная инструкция по запуску на сервере Ubuntu
 
+
 ### 1. Подготовка сервера
 
-- Убедитесь, что на сервере установлен Docker и docker-compose:
+- Запустите скрипт для автоматической проверки и установки Docker и docker-compose:
   ```bash
-  sudo apt update
-  sudo apt install -y docker.io docker-compose
-  sudo systemctl enable --now docker
+  curl -fsSL https://raw.githubusercontent.com/asvspb/zerotier-via-docker/main/install_docker.sh | bash
+  # или если вы уже скачали репозиторий:
+  bash install_docker.sh
   ```
 
-- (Рекомендуется) Добавьте своего пользователя в группу docker:
-  ```bash
-  sudo usermod -aG docker $USER
-  # Перезайдите в сессию или выполните: newgrp docker
-  ```
+  Скрипт сам установит необходимые компоненты и добавит пользователя в группу docker (при необходимости).
 
 ### 2. Клонирование репозитория
 
