@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  zerotier:
+    build: .
+    container_name: zerotier-exitnode
+    environment:
+      - ZT_NETWORK_ID=${ZT_NETWORK_ID}
+      - ZT_TOKEN=${ZT_TOKEN}
+      - ZT_NODE_NAME=${ZT_NODE_NAME}
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - zerotier-data:/var/lib/zerotier-one
+volumes:
+  zerotier-data:
