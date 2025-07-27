@@ -27,4 +27,28 @@ if ! groups $USER | grep -q docker; then
     echo "Перезайдите в сессию или выполните: newgrp docker"
 fi
 
+
+# --- Интерактивная настройка ZT_NETWORK_ID и создание .env ---
+cd "$(dirname "$0")"
+if [ ! -f .env ]; then
+    echo
+    read -rp "Введите ваш ZT_NETWORK_ID (ID вашей ZeroTier-сети): " ZT_NETWORK_ID
+    echo "ZT_NETWORK_ID=$ZT_NETWORK_ID" > .env
+    echo "ZT_TOKEN=" >> .env
+    echo "ZT_NODE_NAME=" >> .env
+    echo ".env создан."
+else
+    echo ".env уже существует, пропускаю создание."
+fi
+
 echo "Готово!"
+echo
+echo "--- Лог подключения к сети ---"
+if [ -n "$ZT_NETWORK_ID" ]; then
+    echo "Для подключения к сети используйте:"
+    echo "  docker-compose up -d --build"
+    echo "Затем проверьте логи контейнера командой:"
+    echo "  docker logs zerotier-exitnode"
+    echo "или внутри контейнера:"
+    echo "  docker exec -it zerotier-exitnode zerotier-cli listnetworks"
+fi
