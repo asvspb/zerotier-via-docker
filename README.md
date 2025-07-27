@@ -8,11 +8,76 @@
 - Настройка сервера как exit node (маршрутизация и NAT)
 - Гибкая конфигурация через переменные окружения
 
+
+## Подробная инструкция по запуску на сервере Ubuntu
+
+### 1. Подготовка сервера
+
+- Убедитесь, что на сервере установлен Docker и docker-compose:
+  ```bash
+  sudo apt update
+  sudo apt install -y docker.io docker-compose
+  sudo systemctl enable --now docker
+  ```
+
+- (Рекомендуется) Добавьте своего пользователя в группу docker:
+  ```bash
+  sudo usermod -aG docker $USER
+  # Перезайдите в сессию или выполните: newgrp docker
+  ```
+
+### 2. Клонирование репозитория
+
+```bash
+git clone https://github.com/asvspb/zerotier-via-docker.git
+cd zerotier-via-docker
+```
+
+### 3. Настройка переменных окружения
+
+- Скопируйте пример файла и отредактируйте:
+  ```bash
+  cp .env.example .env
+  nano .env
+  # Укажите ваш ZT_NETWORK_ID и другие параметры
+  ```
+
+### 4. Сборка и запуск контейнера
+
+```bash
+docker-compose up -d --build
+```
+
+### 5. Авторизация узла в ZeroTier Central
+
+- Перейдите в https://my.zerotier.com/network/<ваш_network_id>
+- Найдите новый узел (Node ID) и авторизуйте его (Allow).
+
+### 6. Проверка работы exit node
+
+- Подключитесь к этой же ZeroTier-сети с другого устройства.
+- Проверьте, что через сервер проходит интернет-трафик (например, сравните IP через https://ifconfig.me).
+- Для диагностики используйте:
+  ```bash
+  docker logs zerotier-exitnode
+  docker exec -it zerotier-exitnode bash
+  zerotier-cli info
+  zerotier-cli listnetworks
+  ```
+
+### 7. Остановка и удаление
+
+```bash
+docker-compose down
+```
+
+---
+
 ## Быстрый старт
 
 1. **Клонируйте репозиторий:**
    ```bash
-   git clone <ваш-репозиторий>
+   git clone https://github.com/asvspb/zerotier-via-docker.git
    cd zerotier-via-docker
    ```
 
