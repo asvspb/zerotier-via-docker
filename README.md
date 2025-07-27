@@ -12,34 +12,26 @@
 ## Подробная инструкция по запуску на сервере Ubuntu
 
 
-### 1. Подготовка сервера
 
-- Запустите скрипт для автоматической проверки и установки Docker и docker-compose:
-  ```bash
-  curl -fsSL https://raw.githubusercontent.com/asvspb/zerotier-via-docker/main/install_docker.sh | bash
-  # или если вы уже скачали репозиторий:
-  bash install_docker.sh
-  ```
-
-  Скрипт сам установит необходимые компоненты и добавит пользователя в группу docker (при необходимости).
-
-### 2. Клонирование репозитория
+### 1. Клонирование репозитория и подготовка сервера
 
 ```bash
 git clone https://github.com/asvspb/zerotier-via-docker.git
 cd zerotier-via-docker
 ```
 
-### 3. Настройка переменных окружения
+### 2. Запуск скрипта установки и настройки
 
-- Скопируйте пример файла и отредактируйте:
-  ```bash
-  cp .env.example .env
-  nano .env
-  # Укажите ваш ZT_NETWORK_ID и другие параметры
-  ```
+Выполните обязательный скрипт:
+```bash
+bash install_docker.sh
+```
+Скрипт автоматически:
+- Проверит и установит Docker и docker-compose
+- Добавит пользователя в группу docker (если нужно)
+- Запросит у вас ZT_NETWORK_ID и создаст .env
 
-### 4. Сборка и запуск контейнера
+### 3. Сборка и запуск контейнера
 
 ```bash
 docker-compose up -d --build

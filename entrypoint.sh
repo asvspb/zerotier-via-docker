@@ -1,5 +1,17 @@
+
 #!/bin/bash
 set -e
+
+# Проверка наличия .env и docker
+if [ ! -f /entrypoint.env ]; then
+    echo "[FATAL] Не найден файл .env. Пожалуйста, сначала выполните install_docker.sh для настройки окружения и регистрации ZT_NETWORK_ID."
+    exit 1
+fi
+source /entrypoint.env
+if ! command -v docker &> /dev/null; then
+    echo "[FATAL] Docker не установлен. Пожалуйста, выполните install_docker.sh."
+    exit 1
+fi
 
 # Запуск демона ZeroTier
 service zerotier-one start
@@ -10,6 +22,9 @@ sleep 3
 # Присоединение к сети
 if [ -n "$ZT_NETWORK_ID" ]; then
     zerotier-cli join "$ZT_NETWORK_ID"
+else
+    echo "[FATAL] ZT_NETWORK_ID не задан. Пожалуйста, выполните install_docker.sh и настройте .env."
+    exit 1
 fi
 
 # Ожидание успешного подключения к сети
