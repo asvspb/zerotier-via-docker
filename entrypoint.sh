@@ -12,6 +12,23 @@ if [ -n "$ZT_NETWORK_ID" ]; then
     zerotier-cli join "$ZT_NETWORK_ID"
 fi
 
+# Ожидание успешного подключения к сети
+if [ -n "$ZT_NETWORK_ID" ]; then
+    echo "Ожидание подключения к ZeroTier сети $ZT_NETWORK_ID..."
+    for i in {1..30}; do
+        STATUS="$(zerotier-cli listnetworks | grep "$ZT_NETWORK_ID" | awk '{print $5}')"
+        if [ "$STATUS" = "OK" ]; then
+            echo "[INFO] Успешно подключено к ZeroTier сети $ZT_NETWORK_ID (статус: $STATUS)"
+            break
+        else
+            echo "[WAIT] Статус: $STATUS. Ожидание... ($i/30)"
+            sleep 2
+        fi
+    done
+    if [ "$STATUS" != "OK" ]; then
+        echo "[WARN] Не удалось подтвердить успешное подключение к сети $ZT_NETWORK_ID (статус: $STATUS)"
+    fi
+fi
 sleep 10
 
 # Включение IP forwarding
