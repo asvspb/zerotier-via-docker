@@ -7,15 +7,11 @@ IFS=$'\n\t'
 TARGET_USER=""
 TIMEZONE="Europe/London"
 NODE_LTS="20" # e.g. "20" to pin a version
-INSTALL_ZSH=true
-INSTALL_TMUX=true
 # ========================================================================
 
 usage() {
-  echo "Usage: sudo bash $0 --user <username> [--no-zsh] [--no-tmux] [--timezone <tz>]"
+  echo "Usage: sudo bash $0 --user <username> [--timezone <tz>]"
   echo "  --user <username>: (Required) The non-root user to configure."
-  echo "  --no-zsh:          Do not install ZSH and Oh My Zsh."
-  echo "  --no-tmux:         Do not install Tmux."
   echo "  --timezone <tz>:   Set the server timezone (default: Europe/London)."
   exit 1
 }
@@ -25,8 +21,6 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --user)     TARGET_USER="$2"; shift 2 ;;
     --timezone) TIMEZONE="$2"; shift 2 ;;
-    --no-zsh)   INSTALL_ZSH=false; shift ;;
-    --no-tmux)  INSTALL_TMUX=false; shift ;;
     -h|--help)  usage ;;
     *)          echo "Unknown option $1"; usage ;;
   esac
@@ -72,19 +66,6 @@ curl -fsSL https://deb.nodesource.com/setup_"$NODE_LTS".x | bash - || {
 apt-get install -y nodejs
 node --version && npm --version || echo "Warning: Node.js or npm installation might have failed."
 
-if [[ "$INSTALL_ZSH" = true ]]; then
-  echo "=== ZSH and Oh My Zsh ==="
-  apt-get install -y zsh
-  echo "Installing Oh My Zsh for $TARGET_USER..."
-  sudo -u "$TARGET_USER" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
-  chsh -s "$(which zsh)" "$TARGET_USER"
-  echo "ZSH is set as the default shell for $TARGET_USER. A new login is required."
-fi
-
-if [[ "$INSTALL_TMUX" = true ]]; then
-  echo "=== Tmux ==="
-  apt-get install -y tmux
-fi
 
 echo "=== UFW and Fail2ban ==="
 ufw allow OpenSSH
