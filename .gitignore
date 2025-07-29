@@ -1,8 +1,8 @@
-# Локальные файлы конфигурации
+# Local IDE configuration files
 .vscode/
 .idea/
 
-# Файлы операционной системы
+# Operating system files
 .DS_Store
 Thumbs.db
 *.qodo
