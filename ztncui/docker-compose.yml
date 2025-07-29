@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  ztncui:
+    image: keynetworks/ztncui:latest
+    container_name: ztncui
+    restart: unless-stopped
+    ports:
+      - "9993:9993/udp"    # ZeroTier control port
+      - "3443:3443"        # HTTPS UI (default in image)
+      - "3180:3180"        # HTTP file server (optional)
+    volumes:
+      - ztncui_data:/opt/key-networks/ztncui/etc   # ztncui persistent config (passwd, tls)
+      - zerotier_data:/var/lib/zerotier-one        # ZeroTier home directory
+    env_file:
+      - .env
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+
+volumes:
+  ztncui_data:
+  zerotier_data:
