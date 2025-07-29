@@ -5,7 +5,7 @@ This repository aggregates **three independent Docker stacks** for different Zer
 | Stack | Purpose | Containers | Default Ports |
 |-------|---------|------------|---------------|
 | **exitnode/** | Lightweight exit-node (NAT gateway) for an *existing* ZeroTier network | 1 (ZeroTier One + NAT) | host network (9993/udp) |
-| **ztnet/** | Full self-hosted controller **ZTNET** (Next.js UI + Postgres + ZeroTier) | 3 (`postgres`, `zerotier`, `ztnet`) | 9993/udp, 3000/tcp |
+| **ztnet/** | Full self-hosted controller [**ZTNET**](https://github.com/sinamics/ztnet)  (Next.js UI + Postgres + ZeroTier) | 3 (`postgres`, `zerotier`, `ztnet`) | 9993/udp, 3000/tcp |
 | **ztncui/** | All-in-one image [keynetworks/ztncui](https://github.com/key-networks/ztncui) (ZeroTier One + ztncui UI) | 1 | 9993/udp, 3443/tcp (HTTPS), 3180/tcp (HTTP FS) |
 
 ## Requirements
