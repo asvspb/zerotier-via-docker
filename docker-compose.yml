@@ -1,6 +1,0 @@
-# Legacy root compose moved to exitnode/docker-compose.yml
-# This file is kept to avoid breaking references.
-version: "3.9"
-services:
-  exitnode:
-    image: scratch
