@@ -30,7 +30,7 @@ Each sub-directory provides a ready-to-run `docker-compose.yml`, an `.env.exampl
 ### Quick start
 ```bash
 # install docker if required and copy env template
-./install_exitnode.sh
+./install_ztnexitnode.sh
 
 # edit ztnexitnode/.env and set ZT_NETWORK_ID (+ optional ZT_TOKEN)
 
