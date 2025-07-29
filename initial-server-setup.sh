@@ -6,7 +6,7 @@ IFS=$'\n\t'
 # === PARAMETERS ==========================================================
 TARGET_USER=""
 TIMEZONE="Europe/London"
-NODE_LTS="lts/*" # e.g. "20" to pin a version
+NODE_LTS="20" # e.g. "20" to pin a version
 INSTALL_ZSH=true
 INSTALL_TMUX=true
 # ========================================================================
@@ -65,8 +65,12 @@ usermod -aG docker "$TARGET_USER" || echo "Warning: could not add $TARGET_USER t
 systemctl enable --now docker
 
 echo "=== Node.js ==="
-curl -fsSL https://deb.nodesource.com/setup_"$NODE_LTS".x |
-  bash - && apt-get install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_"$NODE_LTS".x | bash - || {
+  echo "ERROR: Failed to setup NodeSource. Check network connection or NodeSource availability."
+  exit 1
+}
+apt-get install -y nodejs
+node --version && npm --version || echo "Warning: Node.js or npm installation might have failed."
 
 if [[ "$INSTALL_ZSH" = true ]]; then
   echo "=== ZSH and Oh My Zsh ==="
