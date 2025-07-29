@@ -5,3 +5,4 @@
 # Файлы операционной системы
 .DS_Store
 Thumbs.db
+*.qodo

@@ -1,16 +1,6 @@
+# Legacy root compose moved to exitnode/docker-compose.yml
+# This file is kept to avoid breaking references.
+version: "3.9"
 services:
-  zerotier:
-    build: .
-    container_name: zerotier-exitnode
-    environment:
-      - ZT_NETWORK_ID=${ZT_NETWORK_ID}
-      - ZT_TOKEN=${ZT_TOKEN}
-      - ZT_NODE_NAME=${ZT_NODE_NAME}
-    cap_add:
-      - NET_ADMIN
-    network_mode: host
-    restart: unless-stopped
-    volumes:
-      - zerotier-data:/var/lib/zerotier-one
-volumes:
-  zerotier-data:
+  exitnode:
+    image: scratch
