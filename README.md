@@ -4,7 +4,7 @@ This repository aggregates **three independent Docker stacks** for different Zer
 
 | Stack | Purpose | Containers | Default Ports |
 |-------|---------|------------|---------------|
-| **exitnode/** | Lightweight exit-node (NAT gateway) for an *existing* ZeroTier network | 1 (ZeroTier One + NAT) | host network (9993/udp) |
+| **ztnexitnode/** | Lightweight exit-node (NAT gateway) for an *existing* ZeroTier network | 1 (ZeroTier One + NAT) | host network (9993/udp) |
 | **ztnet/** | Full self-hosted controller [**ZTNET**](https://github.com/sinamics/ztnet)  (Next.js UI + Postgres + ZeroTier) | 3 (`postgres`, `zerotier`, `ztnet`) | 9993/udp, 3000/tcp |
 | **ztncui/** | All-in-one image [keynetworks/ztncui](https://github.com/key-networks/ztncui) (ZeroTier One + ztncui UI) | 1 | 9993/udp, 3443/tcp (HTTPS), 3180/tcp (HTTP FS) |
 
@@ -21,7 +21,7 @@ Each sub-directory provides a ready-to-run `docker-compose.yml`, an `.env.exampl
 > No need to work as **root**. After Docker installation the script adds your current user to the `docker` group.
 
 ---
-## 1 – exitnode/  (simple ZeroTier exit-node)
+## 1 – ztnexitnode/  (simple ZeroTier exit-node)
 ### Features
 * Runs `zerotier-one` inside the container.
 * Automatically joins the network specified by `ZT_NETWORK_ID`.
@@ -32,9 +32,9 @@ Each sub-directory provides a ready-to-run `docker-compose.yml`, an `.env.exampl
 # install docker if required and copy env template
 ./install_exitnode.sh
 
-# edit exitnode/.env and set ZT_NETWORK_ID (+ optional ZT_TOKEN)
+# edit ztnexitnode/.env and set ZT_NETWORK_ID (+ optional ZT_TOKEN)
 
-cd exitnode
+cd ztnexitnode
 # build & start
 docker compose up -d --build
 ```

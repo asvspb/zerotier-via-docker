@@ -11,7 +11,7 @@ if ! command -v docker compose &>/dev/null; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR/exitnode"
+cd "$SCRIPT_DIR/ztnexitnode"
 [[ -f .env ]] || cp .env.example .env
 
-echo "Edit exitnode/.env with your ZT_NETWORK_ID before starting."
+echo "Edit ztnexitnode/.env with your ZT_NETWORK_ID before starting."
