@@ -8,9 +8,13 @@ This repository aggregates **three independent Docker stacks** for different Zer
 | **ztnet/** | Full self-hosted controller [**ZTNET**](https://github.com/sinamics/ztnet)  (Next.js UI + Postgres + ZeroTier) | 3 (`postgres`, `zerotier`, `ztnet`) | 9993/udp, 3000/tcp |
 | **ztncui/** | All-in-one image [keynetworks/ztncui](https://github.com/key-networks/ztncui) (ZeroTier One + ztncui UI) | 1 | 9993/udp, 3443/tcp (HTTPS), 3180/tcp (HTTP FS) |
 
+---
+**Fresh server?** Run `initial-server-setup.sh` once on a pristine Ubuntu 22.04 host. It installs Docker + Compose v2, Node LTS, Python-Poetry, PostgreSQL, UFW/Fail2ban, Zsh/tmux and other essentials.
+
 ## Requirements
 * Linux x86-64, ≥1 CPU, ≥1 GiB RAM  
-* **Docker 23+** and the **Docker Compose plugin** (`docker compose`)
+* Ubuntu 22.04 server (other Debian/Ubuntu releases also work with minor tweaks)  
+* **Docker 23+** and **Docker Compose v2** – both are installed automatically by `initial-server-setup.sh`
 
 Each sub-directory provides a ready-to-run `docker-compose.yml`, an `.env.example` file and a convenience installer `install_*.sh`.
 
