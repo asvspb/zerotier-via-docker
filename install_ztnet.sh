@@ -5,18 +5,11 @@ set -euo pipefail
 GREEN="\033[0;32m"
 NC="\033[0m"
 
-# 1. Install docker & compose if missing
-if ! command -v docker &>/dev/null; then
-  echo -e "${GREEN}[+] Installing Docker …${NC}"
-  curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo sh get-docker.sh
-  sudo usermod -aG docker "$USER"
-  echo "Docker installed. Log out/in for group changes to take effect."  
-fi
-
-if ! command -v docker compose &>/dev/null; then
-  echo -e "${GREEN}[+] Installing docker-compose plugin …${NC}"
-  sudo apt-get update -qq && sudo apt-get install -y docker-compose-plugin
+# 1. Check for dependencies
+if ! command -v docker &>/dev/null || ! docker compose version &>/dev/null; then
+  echo "Docker or Docker Compose not found."
+  echo "Please run the 'initial-server-setup.sh' script first to install dependencies."
+  exit 1
 fi
 
 # 2. Prepare project directory
