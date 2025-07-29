@@ -54,16 +54,18 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 usermod -aG docker "$TARGET_USER"
 systemctl enable docker
 
-echo "=== PostgreSQL $PG_VERSION ==="
-curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc |
-  gpg --dearmor -o /etc/apt/keyrings/postgres.gpg
-echo "deb [signed-by=/etc/apt/keyrings/postgres.gpg] \
-  http://apt.postgresql.org/pub/repos/apt jammy-pgdg main" \
-  > /etc/apt/sources.list.d/pgdg.list
-apt-get update -y
-apt-get install -y "postgresql-$PG_VERSION" "postgresql-contrib-$PG_VERSION"
-su - postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname='$TARGET_USER'\" | grep -q 1 || createuser -s $TARGET_USER"
+echo "=== Docker Compose ==="
+if ! command -v docker compose &>/dev/null; then
+  apt-get install -y docker-compose-plugin
+else
+  echo "Docker Compose is already installed."
+fi
 
+echo "=== Node.js ==="
+curl -fsSL https://deb.nodesource.com/setup_"$NODE_LTS".x |
+  bash - && apt-get install -y nodejs
+
+  
 echo "=== UFW and Fail2ban ==="
 ufw allow OpenSSH
 ufw allow 80
