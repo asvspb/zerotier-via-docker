@@ -27,7 +27,7 @@ detect_stacks() {
       detected_stacks+=("$stack")
     fi
   done
-  echo "${detected_stacks[@]}"
+  printf "%s\n" "${detected_stacks[@]}"
 }
 
 # Finds image IDs related to ZeroTier
@@ -88,7 +88,7 @@ main_menu() {
     echo -e "\n${C_CYAN}--- ZeroTier Cleanup Menu ---${C_RESET}"
     
     local available_stacks
-    available_stacks=($(detect_stacks))
+    mapfile -t available_stacks < <(detect_stacks)
     local image_ids
     image_ids=$(detect_image_ids)
     
@@ -110,7 +110,7 @@ main_menu() {
     
     # "Remove All" option
     if [[ ${#available_stacks[@]} -gt 0 || -n "$image_ids" ]]; then
-      options+=("${C_YELLOW}[!!!] Remove ALL of the above${C_RESET}")
+      options+=("[!!!] Remove ALL of the above")
     fi
     
     options+=("Exit")
@@ -138,7 +138,7 @@ main_menu() {
           break
           ;;
         *"[!!!] Remove ALL"*)
-          read -p "$(echo -e ${C_RED}"WARNING! This will remove ALL found ZeroTier stacks and images. Continue? (y/N): "${C_RESET})" confirm
+          read -p "$(echo -e "${C_RED}WARNING! This will remove ALL found ZeroTier stacks and images. Continue? (y/N): ${C_RESET}")" confirm
           if [[ "${confirm,,}" == "y" ]]; then
             for stack in "${available_stacks[@]}"; do
               remove_stack "$stack"
