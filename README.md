@@ -9,7 +9,7 @@ This repository aggregates **three independent Docker stacks** for different Zer
 | **ztncui/** | All-in-one image [keynetworks/ztncui](https://github.com/key-networks/ztncui) (ZeroTier One + ztncui UI) | 1 | 9993/udp, 3443/tcp (HTTPS), 3180/tcp (HTTP FS) |
 
 ---
-**Fresh server?** Run `initial-server-setup.sh` once on a pristine Ubuntu 22.04 host. It installs Docker + Compose v2, Node LTS, Python-Poetry, PostgreSQL, UFW/Fail2ban, Zsh/tmux and other essentials.
+**Fresh server?** Run `initial-server-setup.sh` once on a pristine Ubuntu 22.04 host. It installs Docker + Compose v2, Node.js LTS, UFW/Fail2ban, Python and other base utilities.
 
 ## Requirements
 * Linux x86-64, ≥1 CPU, ≥1 GiB RAM  
