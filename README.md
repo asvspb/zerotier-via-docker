@@ -11,7 +11,7 @@ This repository aggregates **three independent Docker stacks** for different Zer
 ---
 **Fresh server?**
 If you are setting up a new ZeroTier network, you can use the `initial-server-setup.sh` script to automate the installation and configuration.
-Run `initial-server-setup.sh` once on a pristine Ubuntu 22.04 host. It installs Docker + Compose v2, Lasydocker, UFW/Fail2ban and other base utilities.
+Run `initial-server-setup.sh` once on a pristine Ubuntu 22.04 host. It installs Docker + Compose v2, Lazydocker, UFW/Fail2ban and other base utilities.
 
 ## Requirements
 * Linux x86-64, ≥1 CPU, ≥1 GiB RAM  
