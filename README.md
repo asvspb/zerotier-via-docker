@@ -32,7 +32,7 @@ Each sub-directory provides a ready-to-run `docker-compose.yml`, an `.env.exampl
 # install docker if required and copy env template
 ./install_ztnexitnode.sh
 
-# edit ztnexitnode/.env and set ZT_NETWORK_ID (+ optional ZT_TOKEN)
+# Edit ztnexitnode/.env file with your network details.
 
 cd ztnexitnode
 # build & start
@@ -125,4 +125,3 @@ docker volume rm <volume_name>
 * External images follow their own licenses: **ZTNET** – MIT, **ztncui** – GPLv3, **ZeroTier One** – BSL.
 
 ---
-
